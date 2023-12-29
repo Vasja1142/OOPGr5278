@@ -1,3 +1,6 @@
+import Domain.Product;
+import Services.VendingMachine;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -6,57 +9,60 @@ import javax.swing.*;
 
 public class MainFrame extends JFrame {
     
-    
+    VendingMachine vendingMachine;
     final private Font mainFont = new Font("Segoe print", Font.BOLD, 18);
-    JTextField tfFirstName, tfLastName;
+    JTextField many, tfLastName;
     
     
     JLabel lbWelcome;
 
+    public MainFrame(VendingMachine vendingMachine){
+        this.vendingMachine = vendingMachine;
+    }
     public void initialize() {
-       
-        
-        JLabel lbFirstName = new JLabel("First Name");
-        lbFirstName.setFont(mainFont);
 
-        tfFirstName = new JTextField();
-        tfFirstName.setFont(mainFont);
-        
-        
-        JLabel lbLastName = new JLabel("First Name");
-        lbLastName.setFont(mainFont);
+        JLabel lbPrice = new JLabel("Введите цену");
+        lbPrice.setFont(mainFont);
 
-       
-        
-        tfLastName = new JTextField();
-        tfLastName.setFont(mainFont);
+        many = new JTextField();
+        many.setFont(mainFont);
 
-        
-        
+
         JPanel formPanel = new JPanel();
+        JPanel formPanel2 = new JPanel();
+
         formPanel.setLayout(new GridLayout(4, 1, 5, 5));
-        formPanel.add(lbFirstName);
-        formPanel.add(tfFirstName);
-        formPanel.add(lbLastName);
-        formPanel.add(tfLastName);
-        
+        formPanel2.setLayout(new GridLayout(10, 1, 5, 5));
+
+        for (Product p : vendingMachine.getAssort()) {
+            StringBuilder str = new StringBuilder();
+            str.append(p.getName());
+            str.append(" - ");
+            str.append(p.getPrice());
+            JLabel lbAssort = new JLabel(str.toString());
+            lbAssort.setFont(mainFont);
+            formPanel2.add(lbAssort);
+        }
+
+        formPanel.add(lbPrice);
+        formPanel.add(many);
+
         
         lbWelcome = new JLabel();
         lbWelcome.setFont(mainFont);
 
         
         
-        JButton btnOk = new JButton("Ok");
+        JButton btnOk = new JButton("Pay");
         btnOk.setFont(mainFont);
         btnOk.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                
-                
-                String firstName = tfFirstName.getText();
-                String lastName = tfFirstName.getText();
-                lbWelcome.setText("Hello " + firstName + " " + lastName);
+
+                String manyText  = many.getText();
+
+                lbWelcome.setText("Вы заплатили: " + manyText + " p.");
                 
                 
             }
@@ -71,8 +77,8 @@ public class MainFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                
-                tfFirstName.setText("");
-                tfFirstName.setText("");
+                many.setText("");
+                many.setText("");
                 lbWelcome.setText("");
                 
             }
@@ -89,8 +95,9 @@ public class MainFrame extends JFrame {
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BorderLayout());
         mainPanel.setBackground(new Color(128, 128, 255));
-        
-        mainPanel.add(formPanel, BorderLayout.NORTH);
+
+        mainPanel.add(formPanel2, BorderLayout.NORTH);
+        mainPanel.add(formPanel, BorderLayout.WEST);
 
         
         mainPanel.add(lbWelcome, BorderLayout.CENTER);
@@ -108,16 +115,10 @@ public class MainFrame extends JFrame {
 
         
         setTitle("VendingMachines");
-        setSize(500, 600);
-        setMaximumSize(new Dimension(300, 400));
+        setSize(800, 600);
+        setMaximumSize(new Dimension(800, 600));
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
-    }
-
-    public static void main(String[] arg)
-    {
-        MainFrame myFrame = new MainFrame();
-        myFrame.initialize();
     }
 
 }

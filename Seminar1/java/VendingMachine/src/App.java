@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Domain.Bottle;
+import Domain.HotDrink;
 import Domain.Product;
 import Services.CoinDispenser;
 import Services.Display;
@@ -18,7 +19,8 @@ public class App {
         Product item5 = new Product(60, 1, "3korochki", 1238);
         Product item6 = new Product(150, 2, "snikers", 1239);
         Product item7 = new Bottle(150, 3, "Cola", 1240, 0.5f);
-
+        Product item8 = new HotDrink(110, 30, "Cappuccino", 1241, 80);
+        Product item9 = new HotDrink(120, 31, "Latte", 1242, 80);
        // System.out.println(item7);
 
         Holder hold = new Holder();
@@ -33,6 +35,8 @@ public class App {
         listProd.add(item5);
         listProd.add(item6);
         listProd.add(item7);
+        listProd.add(item8);
+        listProd.add(item9);
 
         VendingMachine vm = new VendingMachine(hold, coin, disp, listProd);
 
@@ -41,7 +45,7 @@ public class App {
             System.out.println(p);
         }
 
-        MainFrame myFrame = new MainFrame();
+        MainFrame myFrame = new MainFrame(vm);
         myFrame.initialize();
     }
 }
