@@ -1,9 +1,12 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
+import Domain.GroupComparator;
 import Domain.Student;
 import Domain.StudentGroup;
+import Domain.StudentStream;
 
 public class App {
     public static void main(String[] args) throws Exception {
@@ -14,32 +17,41 @@ public class App {
         Student s4 = new Student("Игорь",  23);
         Student s5 = new Student("Даша",  23);
         Student s6 = new Student("Лена",  23);
+        Student s7 = new Student("Вася",  27);
 
-        List<Student> listStud = new ArrayList<Student>();
-        listStud.add(s1);
-        listStud.add(s2);
-        listStud.add(s3);
-        listStud.add(s4);
-        listStud.add(s5);
-        listStud.add(s6);
-        
+        List<Student> listStud1 = new ArrayList<>();
+        List<Student> listStud2 = new ArrayList<>();
+        List<Student> listStud3 = new ArrayList<>();
 
-        StudentGroup group4580 = new StudentGroup(listStud, 4580);
-        System.out.println(group4580);
+        listStud1.add(s1);
+        listStud1.add(s2);
+        listStud2.add(s3);
+        listStud2.add(s4);
+        listStud2.add(s5);
+        listStud2.add(s6);
+        listStud3.add(s7);
 
-        for(Student std : group4580)
-        {
-            System.out.println(std);
-        }
+        StudentGroup group1 = new StudentGroup(listStud1, 1);
+        StudentGroup group2 = new StudentGroup(listStud2, 2);
+        StudentGroup group3 = new StudentGroup(listStud3, 3);
 
-        System.out.println("=========================================================");
+        List<StudentGroup> groups = new ArrayList<>();
+        groups.add(group1);
+        groups.add(group2);
+        groups.add(group3);
+        StudentStream stream = new StudentStream(groups, 1);
 
-        Collections.sort(group4580.getGroup());
+        System.out.println(stream);
+        Collections.sort(stream.getStudentStream());
 
-        for(Student std: group4580.getGroup())
-        {
-            System.out.println(std);
-        }
+        System.out.println("====================================");
+        System.out.println(stream);
+
+        Comparator<StudentGroup> comp = new GroupComparator();
+        Collections.sort(stream.getStudentStream(), comp);
+
+        System.out.println("====================================");
+        System.out.println(stream);
 
     }
 }
