@@ -8,6 +8,7 @@ import Domain.Employee;
 import Domain.Student;
 import Domain.StudentGroup;
 import Domain.Teacher;
+import Services.TeacherService;
 
 public class App {
     public static void main(String[] args) throws Exception {
@@ -46,8 +47,26 @@ public class App {
         }
 
 
+
         Teacher t1 = new Teacher("Эдуард", 50, "Доцент");
+        Teacher t2 = new Teacher("Дмитрий", 53, "Преподаватель");
+        Teacher t3 = new Teacher("Василий", 40, "Доцент");
+        Teacher t4 = new Teacher("Игорь", 56, "Доцент");
+        Teacher t5 = new Teacher("Сергей", 30, "Доцент");
+        Teacher t6 = new Teacher("Владимир", 36, "Доцент");
         Employee e1 = new Employee("Федор", 35, "Дворник");
+
+        TeacherService TS = new TeacherService();
+        TS.create(t1);
+        TS.create(t2);
+        TS.create(t3);
+        TS.create(t4);
+        TS.create(t5);
+        TS.create(t6);
+        System.out.println(TS);
+
+        double averageAge = AccountController.AverageAge(TS.getAll());
+        System.out.printf("Средний возраст преподавателей: %.0f лет.\n", averageAge );
 
        // AccountController controller = new AccountController();
        // controller.paySalary(t1, 50000);

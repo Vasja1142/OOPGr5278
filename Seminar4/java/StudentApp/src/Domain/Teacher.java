@@ -6,4 +6,11 @@ public class Teacher extends Worker{
         super(firstName, age);
         this.acadDegree = acadDegree;
     }
+
+    @Override
+    public String toString() {
+        return "\n" + acadDegree + ": " +
+                this.getName() + ", " + this.getAge()
+                + " лет";
+    }
 }
